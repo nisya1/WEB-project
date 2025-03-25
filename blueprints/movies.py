@@ -25,8 +25,7 @@ def movies():
     # session.add(new_event)
     # session.commit()
 
-    return render_template("movies/index.html", events=events,
-                           path='../static/movies/images/')
+    return render_template("movies/index.html", events=events)
 
 
 @bp.route('/buy_ticket', methods=['POST'])

@@ -49,7 +49,7 @@
         {% for event in events%}
         <!-- Карточка фильма 1 -->
             <div class="movie-card">
-                <img src={{path}}{{event.ImageName}} alt={{event.Title}} class="movie-poster">
+                <img src="{{ url_for('static', filename='movies/images/' + event.ImageName) }}" alt="{{ event.Title }}" class="movie-poster">
                 <div class="movie-info">
                     <h3 class="movie-title">{{event.Title}}</h3>
                     <p class="movie-genre">Фантастика, 2ч 46м</p>
