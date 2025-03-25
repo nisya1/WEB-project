@@ -32,11 +32,41 @@ body {
     align-items: center;
 }
 
+/* Добавляем в раздел "Навигационная панель" */
 .navbar-brand {
-    color: var(--primary-color);
+    position: relative;
+    display: inline-block;
+    text-decoration: none;
+    height: 40px; /* Оригинальная высота */
+    width: 180px; /* Фиксированная ширина для текста */
+    overflow: visible; /* Позволяет картинке выходить за границы */
+    z-index: 100; /* Чтобы увеличенная картинка была поверх других элементов */
+}
+
+.logo-text {
+    display: inline-block;
     font-size: 28px;
     font-weight: bold;
-    text-decoration: none;
+    color: var(--primary-color);
+    transition: opacity 0.3s ease;
+}
+
+.logo-image {
+    position: absolute;
+    top: -80%;
+    left: 20%;
+    width: auto;
+    height: 100px; /* Такая же высота как у .navbar-brand */
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.navbar-brand:hover .logo-text {
+    opacity: 0;
+}
+
+.navbar-brand:hover .logo-image {
+    opacity: 1;
 }
 
 .nav-links {
