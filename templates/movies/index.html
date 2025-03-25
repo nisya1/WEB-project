@@ -53,7 +53,11 @@
                 <h3 class="movie-title">Дюна: Часть вторая</h3>
                 <p class="movie-genre">Фантастика, 2ч 46м</p>
                 <div class="movie-rating">8.9/10</div>
-                <a href="#" class="btn-buy">Купить билет</a>
+                <form action="{{ url_for('movies.buy_ticket') }}" method="POST">
+                    <input type="hidden" name="movie_title" value="Дюна: Часть вторая">
+                    <input type="hidden" name="movie_id" value="1">
+                    <button type="submit" class="btn-buy">Купить билет</button>
+                </form>
             </div>
         </div>
 

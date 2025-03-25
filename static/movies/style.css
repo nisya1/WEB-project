@@ -221,14 +221,18 @@ body {
 
 .btn-buy {
     display: block;
+    width: 100%; /* Занимает всю доступную ширину */
     background-color: var(--primary-color);
     color: white;
     text-align: center;
     padding: 8px 0;
     border-radius: 4px;
-    text-decoration: none;
+    border: none; /* Убираем стандартную рамку кнопки */
+    cursor: pointer; /* Курсор-указатель как у ссылки */
     font-weight: bold;
     transition: background-color 0.3s;
+    font-family: inherit; /* Наследует шрифт родителя */
+    font-size: inherit; /* Наследует размер шрифта */
 }
 
 .btn-buy:hover {
