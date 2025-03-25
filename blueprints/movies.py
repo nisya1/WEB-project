@@ -1,16 +1,19 @@
 import flask
-from flask import render_template, request, redirect, url_for
-from aaa.db_session import global_init, create_session
-from aaa.events import Events
+from flask import render_template, request
+from data.db_session import global_init, create_session
+from data.posters_models.events import Events
 
 bp = flask.Blueprint("movies", __name__, url_prefix="/movies")
 
 
 @bp.route("/")
 def movies():
-    # global_init(f"data/data.db")
-    # session = create_session()
-    #
+    global_init(f"database/posters.db")
+    session = create_session()
+    events = session.query(Events).all()
+
+
+
     # new_event = Events(
     #     Title="DANDADAN",
     #     GenreId=1,
@@ -22,7 +25,8 @@ def movies():
     # session.add(new_event)
     # session.commit()
 
-    return render_template("movies/index.html")
+    return render_template("movies/index.html", events=events,
+                           path='../static/movies/images/')
 
 
 @bp.route('/buy_ticket', methods=['POST'])
