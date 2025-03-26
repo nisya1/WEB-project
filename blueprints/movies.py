@@ -28,9 +28,19 @@ def movies():
     return render_template("movies/index.html", events=events)
 
 
-@bp.route('/buy_ticket', methods=['POST'])
-def buy_ticket():
-    title = request.form.get('movie_title')
-    movie_id = request.form.get('movie_id')
+@bp.route('/<event_id>', methods=['GET'])
+def movie(event_id: int):
+    global_init(f"database/posters.db")
+    session = create_session()
+    event = session.query(Events).filter(Events.EventId == event_id).first()
+    print(event)
 
-    return render_template('movies/movie.html')
+    # title = request.form.get('movie_title')
+    # movie_id = request.form.get('movie_id')
+
+    return render_template('movies/movie.html', event=event)
+
+
+@bp.route('/buy_ticket/<event_id>', methods=['POST'])
+def buy_ticket(event_id: int):
+    pass
