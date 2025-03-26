@@ -43,3 +43,8 @@ def movie(event_id: int):
 @bp.route('/buy_ticket/<event_id>', methods=['POST'])
 def buy_ticket(event_id: int):
     pass
+
+
+# @bp.route('/register', methods=['POST'])
+# def register():
+#     return render_template('register/register.html')

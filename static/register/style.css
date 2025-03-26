@@ -1,0 +1,215 @@
+/* Основные стили */
+:root {
+    --primary-color: #e50914;
+    --dark-bg: #141414;
+    --light-text: #ffffff;
+    --gray-text: #808080;
+    --card-bg: #222222;
+}
+
+body {
+    background-color: var(--dark-bg);
+    color: var(--light-text);
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px 0;
+}
+
+/* Навигационная панель (полностью сохранена из вашего примера) */
+.navbar {
+    background-color: rgba(0, 0, 0, 0.9);
+    padding: 15px 0;
+    border-bottom: 1px solid var(--primary-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-brand {
+    position: relative;
+    display: inline-block;
+    text-decoration: none;
+    height: 40px; /* Оригинальная высота */
+    width: 180px; /* Фиксированная ширина для текста */
+    overflow: visible; /* Позволяет картинке выходить за границы */
+    z-index: 100; /* Чтобы увеличенная картинка была поверх других элементов */
+}
+
+.logo-text {
+    display: inline-block;
+    font-size: 28px;
+    font-weight: bold;
+    color: var(--primary-color);
+    transition: opacity 0.3s ease;
+}
+
+.logo-image {
+    position: absolute;
+    top: -80%;
+    left: 20%;
+    width: auto;
+    height: 100px; /* Такая же высота как у .navbar-brand */
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.navbar-brand:hover .logo-text {
+    opacity: 0;
+}
+
+.navbar-brand:hover .logo-image {
+    opacity: 1;
+}
+
+.nav-links {
+    display: flex;
+    gap: 25px;
+}
+
+.nav-link {
+    color: var(--light-text);
+    text-decoration: none;
+    font-size: 16px;
+    transition: color 0.3s;
+}
+
+.nav-link:hover {
+    color: var(--primary-color);
+}
+
+.nav-link.active {
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+.auth-buttons {
+    display: flex;
+    gap: 15px;
+}
+
+.btn-auth {
+    padding: 8px 20px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+.btn-login {
+    background-color: transparent;
+    color: var(--light-text);
+    border: 1px solid var(--light-text);
+}
+
+.btn-login:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.btn-register {
+    background-color: var(--primary-color);
+    color: var(--light-text);
+    border: 1px solid var(--primary-color);
+}
+
+.btn-register:hover {
+    background-color: #f40612;
+}
+
+
+/* Стили для формы регистрации */
+.registration-container {
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+.registration-title {
+    text-align: center;
+    color: var(--light-text);
+    margin-bottom: 30px;
+    font-size: 28px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--light-text);
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px 15px;
+    background-color: #333;
+    border: 1px solid #444;
+    border-radius: 4px;
+    font-size: 16px;
+    color: var(--light-text);
+    transition: border-color 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(229, 9, 20, 0.2);
+}
+
+.btn-register {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-register:hover {
+    background-color: #f40612;
+}
+
+.login-link {
+    text-align: center;
+    margin-top: 20px;
+    color: var(--gray-text);
+}
+
+.login-link a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.login-link a:hover {
+    color: #f40612;
+    text-decoration: underline;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
+
+    .registration-container {
+        padding: 20px;
+        margin: 30px auto;
+    }
+}

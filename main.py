@@ -1,11 +1,11 @@
-import blueprints.movies
+import blueprints.movies, blueprints.register
 from flask import Flask, redirect
-from flask_wtf.csrf import CSRFProtect
 
 
 app = Flask(__name__)
 
 app.register_blueprint(blueprints.movies.bp)
+app.register_blueprint(blueprints.register.bp)
 
 
 @app.route('/')

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Кинотека — Главная</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{{ url_for('static', filename='movies/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='register/style.css') }}">
 </head>
 <body>
 <!-- Навигационная панель -->
@@ -34,37 +34,38 @@
     </div>
 </nav>
 
-<div class="findbar">
-    <div class="container">
-        <div class="search">
-            <input type="text" placeholder="Найти фильм...">
-            <button>Поиск</button>
-        </div>
-    </div>
-</div>
-
 <!-- Основной контент -->
-<div class="container main-content">
-    <h1 class="page-title">Сейчас в кинотеатрах</h1>
+<div class="container">
+    <div class="registration-container">
+        <h2 class="registration-title">Создайте аккаунт</h2>
 
-    <div class="movies-grid">
-        {% for event in events%}
-        <!-- Карточка фильма 1 -->
-        <div class="movie-card">
-            <img src="{{ url_for('static', filename='movies/images/' + event.ImageName) }}" alt="{{event.Title}}"
-                 class="movie-poster">
-            <div class="movie-info">
-                <h3 class="movie-title">{{event.Title}}</h3>
-                <p class="movie-genre">Фантастика, {{event.Duration}}</p>
-                <div class="movie-rating">{{event.Rating}}/10</div>
-                <form action="{{ url_for('movies.movie', event_id=event.EventId) }}" method="GET">
-                    <input type="hidden" name="movie_title" value={{event.Title}}>
-                    <input type="hidden" name="movie_id" value={{event.EventId}}>
-                    <button type="submit" class="btn-buy">Купить билет</button>
-                </form>
+        <form action="" method="POST">
+            <div class="form-group">
+                <label for="username" class="form-label">Имя пользователя</label>
+                <input type="text" class="form-control" id="username" name="username" required>
             </div>
-        </div>
-        {% endfor %}
+
+            <div class="form-group">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password" class="form-label">Пароль</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+
+            <div class="form-group">
+                <label for="confirm_password" class="form-label">Подтвердите пароль</label>
+                <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
+            </div>
+
+            <button type="submit" class="btn btn-register">Зарегистрироваться</button>
+
+            <div class="login-link">
+                Уже есть аккаунт? <a href="">Войти</a>
+            </div>
+        </form>
     </div>
 </div>
 

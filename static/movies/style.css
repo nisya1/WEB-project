@@ -32,7 +32,6 @@ body {
     align-items: center;
 }
 
-/* Добавляем в раздел "Навигационная панель" */
 .navbar-brand {
     position: relative;
     display: inline-block;
