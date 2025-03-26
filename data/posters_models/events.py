@@ -15,6 +15,9 @@ class Events(SqlAlchemyBase):
     Duration = sqla.Column(sqla.String, default='00:00', nullable=False)
     ImageBlob = sqla.Column(sqla.BLOB, default=True)
     ImageName = sqla.Column(sqla.Text, default=True)
+    Seats = sqla.Column(sqla.Integer, default=0, nullable=False)
+    Price = sqla.Column(sqla.Integer, default=0, nullable=False)
+    Time = sqla.Column(sqla.Text, nullable=False)
     # event = orm.relationship('User')
 
     def __repr__(self):
