@@ -49,14 +49,14 @@
         {% for event in events%}
         <!-- Карточка фильма 1 -->
             <div class="movie-card">
-                <img src="{{ url_for('static', filename='movies/images/' + event.ImageName) }}" alt="{{ event.Title }}" class="movie-poster">
+                <img src="{{ url_for('static', filename='movies/images/' + event.ImageName) }}" alt="{{event.Title}}" class="movie-poster">
                 <div class="movie-info">
                     <h3 class="movie-title">{{event.Title}}</h3>
-                    <p class="movie-genre">Фантастика, 2ч 46м</p>
-                    <div class="movie-rating">8.9/10</div>
-                    <form action="{{ url_for('movies.buy_ticket') }}" method="POST">
+                    <p class="movie-genre">Фантастика, {{event.Duration}}</p>
+                    <div class="movie-rating">{{event.Rating}}/10</div>
+                    <form action="{{ url_for('movies.movie', event_id=event.EventId) }}" method="GET">
                         <input type="hidden" name="movie_title" value={{event.Title}}>
-                        <input type="hidden" name="movie_id" value="1">
+                        <input type="hidden" name="movie_id" value={{event.EventId}}>
                         <button type="submit" class="btn-buy">Купить билет</button>
                     </form>
                 </div>

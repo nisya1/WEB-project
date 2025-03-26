@@ -115,14 +115,14 @@
         <div class="movie-info mb-4">
           <div class="row">
             <div class="col-md-4">
-              <img src="https://via.placeholder.com/300x450" class="img-fluid rounded" alt="Постер фильма">
+              <img src="{{ url_for('static', filename='movies/images/' + event.ImageName) }}" class="img-fluid rounded" alt="{{event.Title}}">
             </div>
             <div class="col-md-8">
-              <h2>Дюна: Часть вторая (2024)</h2>
-              <p class="text-muted">Фантастика, боевик • 2ч 46м • 16+</p>
+              <h2>{{event.Title}}</h2>
+              <p class="text-muted">Фантастика, боевик • {{event.Duration}} • 16+</p>
               <p><strong>Кинотеатр:</strong> Premier Cinema</p>
               <p><strong>Зал:</strong> 5</p>
-              <p><strong>Дата и время:</strong> 15 мая, 19:30</p>
+              <p><strong>Дата и время:</strong> {{event.Time}}</p>
             </div>
           </div>
         </div>
@@ -166,11 +166,11 @@
           <h4 class="mb-4">Ваш заказ</h4>
           <div class="mb-3">
             <h6>Фильм:</h6>
-            <p>Дюна: Часть вторая</p>
+            <p>{{event.Title}}</p>
           </div>
           <div class="mb-3">
             <h6>Сеанс:</h6>
-            <p>15 мая, 19:30</p>
+            <p>{{event.Time}}</p>
           </div>
           <div class="mb-3">
             <h6>Выбранные места:</h6>
@@ -199,7 +199,7 @@
     function updateOrderSummary() {
       const selectedSeats = document.querySelectorAll('.seat.selected');
       const seatsList = Array.from(selectedSeats).map(seat => seat.dataset.seat).join(', ');
-      const totalPrice = selectedSeats.length * 500; // 500 руб. за место
+      const totalPrice = selectedSeats.length * {{event.Price}}; // 500 руб. за место
 
       document.getElementById('selected-seats').textContent =
         selectedSeats.length > 0 ? seatsList : 'Не выбраны';
