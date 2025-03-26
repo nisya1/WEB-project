@@ -33,7 +33,6 @@ def movie(event_id: int):
     global_init(f"database/posters.db")
     session = create_session()
     event = session.query(Events).filter(Events.EventId == event_id).first()
-    print(event)
 
     # title = request.form.get('movie_title')
     # movie_id = request.form.get('movie_id')

@@ -11,7 +11,7 @@ class Events(SqlAlchemyBase):
     Title = sqla.Column(sqla.String, nullable=False)
     GenreId = sqla.Column(sqla.Integer, sqla.ForeignKey('EventGenre.GenreId'), nullable=False)
     TypeId = sqla.Column(sqla.Integer, sqla.ForeignKey('EventType.TypeId'), nullable=False)
-    Rating = sqla.Column(sqla.Numeric, default=0, nullable=False)
+    Rating = sqla.Column(sqla.Text, default=0, nullable=False)
     Duration = sqla.Column(sqla.String, default='00:00', nullable=False)
     ImageBlob = sqla.Column(sqla.BLOB, default=True)
     ImageName = sqla.Column(sqla.Text, default=True)
