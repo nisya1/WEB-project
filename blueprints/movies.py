@@ -34,10 +34,9 @@ def movie(event_id: int):
     session = create_session()
     event = session.query(Events).filter(Events.EventId == event_id).first()
 
-    # title = request.form.get('movie_title')
-    # movie_id = request.form.get('movie_id')
-
-    return render_template('movies/movie.html', event=event)
+    if event:
+        return render_template('movies/movie.html', event=event)
+    return render_template('movies/movie_not_found.html')
 
 
 @bp.route('/buy_ticket/<event_id>', methods=['POST'])
