@@ -122,6 +122,45 @@ body {
     background-color: #f40612;
 }
 
+
+/* кнопки при заходе в аккаунт */
+.auth-buttons {
+    display: flex;
+    gap: 15px;
+}
+
+.btn-auth-user {
+    padding: 8px 20px;
+    border-radius: 4px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+    border: none;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.btn-profile {
+    color: #fff;
+    display: inline-block;
+    line-height: 1.5;
+    border-radius: 4px;
+}
+
+.btn-profile:hover {
+    background-color: #f40612;
+}
+
+/* Стили для кнопки "Выйти" */
+.btn-logout {
+    background-color: #f40612;
+    color: #fff;
+}
+
+.btn-logout:hover {
+    background-color: #f40612;
+}
+
 /* Строка поиска #####################################################################################################*/
 .findbar {
     /*background-color: rgba(0, 0, 0, 0.9);*/

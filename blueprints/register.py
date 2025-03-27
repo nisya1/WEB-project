@@ -20,5 +20,9 @@ def create_account():
 
     if password == confirm_password:
         pass
-
+        session["name"] = name
+        session["email"] = email
+        session["password"] = password
+        session["confirm_password"] = confirm_password
+        session["user_activ"] = True
     return f"{name}, {email}, {password}, {confirm_password}"
