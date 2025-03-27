@@ -1,4 +1,4 @@
-from flask import render_template
+from flask import render_template, session
 from data.db_session import global_init, create_session
 from data.posters_models.events import Events
 
@@ -8,6 +8,4 @@ def main_page():
     sess = create_session()
     events = sess.query(Events).all()
 
-
-
-    return render_template("movies/index.html", events=events)
+    return render_template("movies/index.html", events=events, user_activ=session.user_activ)
