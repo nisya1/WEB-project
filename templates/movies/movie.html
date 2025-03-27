@@ -101,9 +101,28 @@
 </head>
 <body>
   <!-- Навигация -->
-  <nav class="navbar navbar-expand-lg navbar-dark">
+  <nav class="navbar">
     <div class="container">
-      <a class="navbar-brand" href="index.html">КИНОТЕКА</a>
+
+        <a href="." class="navbar-brand">
+            <span class="logo-text">КИНОТЕКА</span>
+            <img src="{{ url_for('static', filename='movies/images/logo-hover.png') }}" class="logo-image"
+                 alt="Кинотека">
+        </a>
+
+        <div class="nav-links">
+            <a href="#" class="nav-link active">Фильмы</a>
+            <a href="#" class="nav-link">Новинки</a>
+            <a href="#" class="nav-link">Скоро</a>
+            <a href="#" class="nav-link">Рейтинги</a>
+        </div>
+
+        <div class="auth-buttons">
+            <a href="#" class="btn-auth btn-login">Войти</a>
+            <form action="{{ url_for('register.register_form') }}" method="GET">
+                <button type="submit" class="btn-auth btn-register">Регистрация</button>
+            </form>
+        </div>
     </div>
   </nav>
 
