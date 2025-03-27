@@ -28,7 +28,7 @@
         <div class="auth-buttons">
             {% if not user_activ %}
                 <a href="#" class="btn-auth btn-login">Войти</a>
-                <form action="{{ url_for('register.register_form') }}" method="GET">
+                <form action="{{ url_for('auth.register_form') }}" method="GET">
                     <button type="submit" class="btn-auth btn-register">Регистрация</button>
                 </form>
             {% else %}
