@@ -19,7 +19,7 @@
         </a>
 
         <div class="nav-links">
-            <a href="#" class="nav-link active">Фильмы</a>
+            <a href="#" class="nav-link">Фильмы</a>
             <a href="#" class="nav-link">Новинки</a>
             <a href="#" class="nav-link">Скоро</a>
             <a href="#" class="nav-link">Рейтинги</a>
@@ -27,9 +27,10 @@
 
         <div class="auth-buttons">
             <a href="#" class="btn-auth btn-login">Войти</a>
-            <form action="{{ url_for('register.register') }}" method="GET">
-                <button type="submit" class="btn-auth btn-nav-register">Регистрация</button>
-            </form>
+            <a href="" class="btn-auth btn-nav-register">Регистрация</a>
+<!--            <form action="" method="GET">-->
+<!--                <button type="submit" class="btn-auth btn-nav-register">Регистрация</button>-->
+<!--            </form>-->
         </div>
     </div>
 </nav>
@@ -39,7 +40,7 @@
     <div class="registration-container">
         <h2 class="registration-title">Создайте аккаунт</h2>
 
-        <form action="" method="POST">
+        <form action="{{ url_for('register.create_account') }}" method="POST">
             <div class="form-group">
                 <label for="username" class="form-label">Имя пользователя</label>
                 <input type="text" class="form-control" id="username" name="username" required>

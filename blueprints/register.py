@@ -7,5 +7,22 @@ bp = flask.Blueprint("register", __name__, url_prefix="/register")
 
 
 @bp.route('/', methods=['GET'])
-def register():
+def register_form():
     return render_template('register/register.html')
+
+
+@bp.route('/', methods=['POST', "GET"])
+def create_account():
+    name = request.form.get("username")
+    email = request.form.get("email")
+    password = request.form.get("password")
+    confirm_password = request.form.get("confirm_password")
+
+    print(name)
+    print(email)
+    print(password)
+    print(confirm_password)
+
+    return f"{name}, {email}, {password}, {confirm_password}"
+
+
