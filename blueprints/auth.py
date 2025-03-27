@@ -20,7 +20,7 @@ def register_form():
             session["email"] = email
             session["password"] = password
             session["confirm_password"] = confirm_password
-            session["user_activ"] = True
+            session["user_active"] = True
             print(f"{name}, {email}, {password}, {confirm_password}")
             return redirect(url_for('to_movies'))
     return render_template('auth/register.html')
