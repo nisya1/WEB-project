@@ -15,12 +15,18 @@ def register_form():
         confirm_password = request.form.get("confirm_password")
 
         if password == confirm_password:
-            pass
             session["name"] = name
             session["email"] = email
             session["password"] = password
-            session["confirm_password"] = confirm_password
             session["user_active"] = True
-            print(f"{name}, {email}, {password}, {confirm_password}")
+
             return redirect(url_for('to_movies'))
+
     return render_template('auth/register.html')
+
+
+@bp.route('/login', methods=['GET', 'POST'])
+def login_form():
+    if request.method == 'POST':
+        pass
+    return render_template('auth/login.html')
