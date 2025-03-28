@@ -1,209 +1,107 @@
-/* Основные стили */
+/* Основные переменные */
 :root {
     --primary-color: #e50914;
     --dark-bg: #141414;
     --light-text: #ffffff;
     --gray-text: #808080;
-    --card-bg: #222222;
 }
 
+/* Базовые стили */
 body {
+    margin: 0;
+    padding: 0;
     background-color: var(--dark-bg);
     color: var(--light-text);
     font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
-}
-
-.container {
-    width: 90%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px 0;
-}
-
-/* Навигационная панель */
-.navbar {
-    background-color: rgba(0, 0, 0, 0.9);
-    padding: 15px 0;
-    border-bottom: 1px solid var(--primary-color);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.navbar-brand {
-    color: var(--primary-color);
-    font-size: 28px;
-    font-weight: bold;
-    text-decoration: none;
-}
-
-.nav-links {
-    display: flex;
-    gap: 25px;
-}
-
-.nav-link {
-    color: var(--light-text);
-    text-decoration: none;
-    font-size: 16px;
-    transition: color 0.3s;
-}
-
-.nav-link:hover {
-    color: var(--primary-color);
-}
-
-.nav-link.active {
-    color: var(--primary-color);
-    font-weight: bold;
-}
-
-.auth-buttons {
-    display: flex;
-    gap: 15px;
-}
-
-.btn-auth {
-    padding: 8px 20px;
-    border-radius: 4px;
-    text-decoration: none;
-    font-weight: bold;
-    transition: all 0.3s;
-}
-
-.btn-login {
-    background-color: transparent;
-    color: var(--light-text);
-    border: 1px solid var(--light-text);
-}
-
-.btn-login:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-}
-
-.btn-register {
-    background-color: var(--primary-color);
-    color: var(--light-text);
-    border: 1px solid var(--primary-color);
-}
-
-.btn-register:hover {
-    background-color: #f40612;
-}
-
-
-
-/* Основной контент */
-.main-content {
-    margin-top: 30px;
-}
-
-.page-title {
-    font-size: 32px;
-    margin-bottom: 30px;
-}
-
-.movies-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 25px;
-}
-
-.movie-card {
-    background-color: var(--card-bg);
-    border-radius: 8px;
-    overflow: hidden;
-    transition: transform 0.3s;
-}
-
-.movie-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-}
-
-.movie-poster {
-    width: 100%;
-    height: 330px;
-    object-fit: cover;
-}
-
-.movie-info {
-    padding: 15px;
-}
-
-.movie-title {
-    font-size: 18px;
-    margin: 0 0 5px 0;
-}
-
-.movie-genre {
-    color: var(--gray-text);
-    font-size: 14px;
-    margin: 0 0 10px 0;
-}
-
-.movie-rating {
-    color: #ffc107;
-    font-weight: bold;
-    margin-bottom: 15px;
-}
-
-.btn-buy {
-    display: block;
-    background-color: var(--primary-color);
-    color: white;
-    text-align: center;
-    padding: 8px 0;
-    border-radius: 4px;
-    text-decoration: none;
-    font-weight: bold;
-    transition: background-color 0.3s;
-}
-
-.btn-buy:hover {
-    background-color: #f40612;
-}
-
-.main-content {
-    height: 70vh;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.error-message {
+/* Контейнер ошибки */
+.error-page {
     text-align: center;
-    padding: 2rem;
-    border-radius: 10px;
-    background-color: rgba(255, 255, 255, 0.9);
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
-.error-main-text {
-    font-size: 3rem;
+/* Стили для GIF-изображения */
+.error-gif {
+    width: 350px;
+    height: auto;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Текстовые элементы */
+.error-title {
+    color: var(--primary-color);
+    font-size: 5rem;
+    margin: 0;
+    line-height: 1;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.error-subtitle {
+    font-size: 2rem;
+    margin: 15px 0;
+    color: var(--light-text);
+}
+
+.error-text {
+    color: var(--gray-text);
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Кнопка */
+.btn-home {
+    display: inline-block;
+    padding: 12px 30px;
+    background-color: var(--primary-color);
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
     font-weight: bold;
-    color: #dc3545;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-    margin-bottom: 1rem;
-    line-height: 1.2;
+    transition: all 0.3s;
+    font-size: 1.1rem;
+    border: none;
+    cursor: pointer;
 }
 
-.error-subtext {
-    font-size: 1.5rem;
-    color: #6c757d;
-    margin-top: 2rem;
-    font-style: italic;
+.btn-home:hover {
+    background-color: #f40612;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(229, 9, 20, 0.4);
 }
 
-/* Адаптивность для мобильных устройств */
-@media (max-width: 768px) {
-    .error-main-text {
-        font-size: 2rem;
+/* Адаптивность */
+@media (max-width: 600px) {
+    .error-gif {
+        width: 250px;
     }
 
-    .error-subtext {
-        font-size: 1.2rem;
+    .error-title {
+        font-size: 3.5rem;
+    }
+
+    .error-subtitle {
+        font-size: 1.5rem;
+    }
+
+    .error-text {
+        font-size: 1rem;
+    }
+
+    .btn-home {
+        padding: 10px 25px;
+        font-size: 1rem;
     }
 }
+
