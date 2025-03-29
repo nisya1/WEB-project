@@ -27,17 +27,17 @@
 
         <div class="auth-buttons">
             {% if not user_active %}
-                <form action="{{ url_for('auth.login_form') }}" method="GET">
-                    <button type="submit" class="btn-auth btn-login">Войти</button>
-                </form>
-                <form action="{{ url_for('auth.register_form') }}" method="GET">
-                    <button type="submit" class="btn-auth btn-register">Регистрация</button>
-                </form>
+            <form action="{{ url_for('auth.login_form') }}" method="GET">
+                <button type="submit" class="btn-auth btn-login">Войти</button>
+            </form>
+            <form action="{{ url_for('auth.register_form') }}" method="GET">
+                <button type="submit" class="btn-auth btn-register">Регистрация</button>
+            </form>
             {% else %}
-                <a href="" class="btn-auth-user btn-profile">Мой профиль</a>
-                <form action="" method="POST">
-                    <button type="submit" class="btn-auth-user btn-logout">Выйти</button>
-                </form>
+            <a href="" class="btn-auth-user btn-profile">Мой профиль</a>
+            <form action="{{ url_for('auth.logout') }}" method="POST">
+                <button type="submit" name="show_modal" value="true" class="btn-auth-user btn-logout">Выйти</button>
+            </form>
             {% endif %}
         </div>
     </div>
@@ -76,7 +76,20 @@
         {% endfor %}
     </div>
 </div>
-
+{% if show_modal %}
+<div class="modal-overlay">
+    <div class="modal-content">
+        <form action="{{ url_for('auth.logout') }}" method="POST">
+            <h3>Подтверждение выхода</h3>
+            <p>Вы действительно хотите выйти из аккаунта?</p>
+            <div class="modal-buttons">
+                <button type="submit" name="confirm_logout" value="true" class="btn-confirm">Выйти</button>
+                <button type="submit" class="btn-cancel">Отмена</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endif %}
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -41,3 +41,18 @@ def login_form():
     if request.method == 'POST':
         pass
     return render_template('auth/login.html')
+
+
+@bp.route('/logout', methods=['POST'])
+def logout():
+    if 'confirm_logout' in request.form:
+        # Реальная логика выхода
+        session.clear()
+        return redirect(url_for('to_movies'))
+    elif 'show_modal' in request.form:
+        # Показываем страницу с модальным окном
+        session["show_modal"] = True
+        return redirect(url_for('to_movies'))
+
+    session["show_modal"] = False
+    return redirect(url_for('to_movies'))
