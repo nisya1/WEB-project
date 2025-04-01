@@ -56,6 +56,16 @@
 
                 <button type="submit" class="btn btn-login-submit">Войти</button>
 
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                {% for message in messages %}
+                    <div class="alert-error" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
+
                 <div class="auth-links">
                     <a href="{{ url_for('auth.register_form') }}">Нет аккаунта? Зарегистрируйтесь</a>
                     <a href="#" class="forgot-password">Забыли пароль?</a>

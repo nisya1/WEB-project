@@ -51,7 +51,27 @@ def register_form():
 @bp.route('/login', methods=['GET', 'POST'])
 def login_form():
     if request.method == 'POST':
-        pass
+        email = request.form.get("email")
+        password = request.form.get("password")
+
+        global_init(f"database/users.db")
+        sess1 = create_session()
+        user = sess1.query(Users).filter(Users.Email == email).first()
+
+        if user:
+            if user.Password == password:
+                session["name"] = user.Name
+                session["email"] = email
+                session["password"] = password
+                session["user_active"] = True
+
+                return redirect(url_for('to_movies'))
+
+            else:
+                flash('Пароль неверный', 'error')
+        else:
+            flash('Пользователя с такой почтой не существует', 'error')
+
     return render_template('auth/login.html')
 
 
