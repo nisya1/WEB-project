@@ -1,5 +1,6 @@
 import flask
-from flask import render_template, request, session, redirect, url_for
+from flask import render_template, request, session, redirect, url_for, flash
+
 from data.db_session import global_init, create_session
 from data.users_models.users import Users
 
@@ -15,23 +16,34 @@ def register_form():
         confirm_password = request.form.get("confirm_password")
 
         if password == confirm_password:
-            session["name"] = name
-            session["email"] = email
-            session["password"] = password
-            session["user_active"] = True
-
+            user_exist = False
             global_init(f"database/users.db")
             sess1 = create_session()
 
-            user = Users(
-                Name=name,
-                Email=email,
-                Password=password
-            )
-            sess1.add(user)
-            sess1.commit()
+            if sess1.query(Users).filter(Users.Name == name).first():
+                flash('Такой пользователь с таким именем существует', 'error')
+                user_exist = True
+            if sess1.query(Users).filter(Users.Email == email).first():
+                flash('Данная электронная почта уже привязана', 'error')
+                user_exist = True
 
-            return redirect(url_for('to_movies'))
+            if not user_exist:
+                user = Users(
+                    Name=name,
+                    Email=email,
+                    Password=password
+                )
+
+
+                sess1.add(user)
+                sess1.commit()
+
+                session["name"] = name
+                session["email"] = email
+                session["password"] = password
+                session["user_active"] = True
+
+                return redirect(url_for('to_movies'))
 
     return render_template('auth/register.html')
 

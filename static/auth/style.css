@@ -202,6 +202,12 @@ body {
     text-decoration: underline;
 }
 
+.alert-error {
+    padding: 15px 0;
+    color: #D8BFD8;
+    text-align: center;
+}
+
 /* Адаптивность */
 @media (max-width: 768px) {
     .nav-links {
