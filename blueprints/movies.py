@@ -7,8 +7,12 @@ from data.posters_models.events import Events
 bp = flask.Blueprint("movies", __name__, url_prefix="/movies")
 
 
-@bp.route("/")
+@bp.route("/", methods=['GET', 'POST'])
 def movies():
+    search = None
+    if request.method == 'POST':
+        search = request.form['search_films']
+
     if 'user_active' not in session.keys():
         session['user_active'] = False
 
@@ -16,7 +20,8 @@ def movies():
     sess = create_session()
     events = sess.query(Events).all()
 
-
+    if search:
+        events = [event for event in events if search.lower() in event.Title.lower()]
 
     # new_event = Events(
     #     Title="DANDADAN",
