@@ -7,14 +7,32 @@ from data.posters_models.events import Events
 bp = flask.Blueprint("movies", __name__, url_prefix="/movies")
 
 
-@bp.route("/")
+@bp.route("/", methods=['GET', 'POST'])
 def movies():
+    search = None
+    if request.method == 'POST':
+        search = request.form['search_films']
+        
     session['user_active'] = session.get('user_active', False)
     session['show_modal'] = session.get('show_modal', False)
 
     global_init(f"database/posters.db")
     sess = create_session()
     events = sess.query(Events).all()
+
+    if search:
+        events = [event for event in events if search.lower() in event.Title.lower()]
+
+    # new_event = Events(
+    #     Title="DANDADAN",
+    #     GenreId=1,
+    #     TypeId=1,
+    #     Rating=9.4,
+    #     Duration="10:00",
+    #     Image="010001"
+    # )
+    # session.add(new_event)
+    # session.commit()
 
     params = {
         "events": events,
