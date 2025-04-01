@@ -12,9 +12,9 @@ def movies():
     search = None
     if request.method == 'POST':
         search = request.form['search_films']
-
-    if 'user_active' not in session.keys():
-        session['user_active'] = False
+        
+    session['user_active'] = session.get('user_active', False)
+    session['show_modal'] = session.get('show_modal', False)
 
     global_init(f"database/posters.db")
     sess = create_session()
@@ -34,7 +34,13 @@ def movies():
     # session.add(new_event)
     # session.commit()
 
-    return render_template("movies/index.html", events=events, user_active=session['user_active'])
+    params = {
+        "events": events,
+        "user_active": session['user_active'],
+        "show_modal": session['show_modal']
+    }
+
+    return render_template("movies/index.html", **params)
 
 
 @bp.route('/<event_id>', methods=['GET'])

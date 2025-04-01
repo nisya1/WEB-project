@@ -1,7 +1,7 @@
 import flask
 from flask import render_template, request, session, redirect, url_for
 from data.db_session import global_init, create_session
-from data.posters_models.events import Events
+from data.users_models.users import Users
 
 bp = flask.Blueprint("auth", __name__, url_prefix="/auth")
 
@@ -20,6 +20,17 @@ def register_form():
             session["password"] = password
             session["user_active"] = True
 
+            global_init(f"database/users.db")
+            sess1 = create_session()
+
+            user = Users(
+                Name=name,
+                Email=email,
+                Password=password
+            )
+            sess1.add(user)
+            sess1.commit()
+
             return redirect(url_for('to_movies'))
 
     return render_template('auth/register.html')
@@ -30,3 +41,18 @@ def login_form():
     if request.method == 'POST':
         pass
     return render_template('auth/login.html')
+
+
+@bp.route('/logout', methods=['POST'])
+def logout():
+    if 'confirm_logout' in request.form:
+        # Реальная логика выхода
+        session.clear()
+        return redirect(url_for('to_movies'))
+    elif 'show_modal' in request.form:
+        # Показываем страницу с модальным окном
+        session["show_modal"] = True
+        return redirect(url_for('to_movies'))
+
+    session["show_modal"] = False
+    return redirect(url_for('to_movies'))
