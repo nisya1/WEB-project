@@ -1,0 +1,266 @@
+/* Основные переменные */
+:root {
+    --primary-color: #e50914;
+    --dark-bg: #141414;
+    --light-text: #ffffff;
+    --gray-text: #808080;
+    --card-bg: #222222;
+}
+
+/* Общие стили */
+body {
+    background-color: var(--dark-bg);
+    color: var(--light-text);
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px 0;
+}
+
+/* Навигационная панель */
+/* Навигационная панель ##############################################################################################*/
+.navbar {
+    background-color: rgba(0, 0, 0, 0.9);
+    padding: 15px 0;
+    border-bottom: 1px solid var(--primary-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-brand {
+    position: relative;
+    display: inline-block;
+    text-decoration: none;
+    height: 40px; /* Оригинальная высота */
+    width: 180px; /* Фиксированная ширина для текста */
+    overflow: visible; /* Позволяет картинке выходить за границы */
+    z-index: 100; /* Чтобы увеличенная картинка была поверх других элементов */
+}
+
+.logo-text {
+    display: inline-block;
+    font-size: 28px;
+    font-weight: bold;
+    color: var(--primary-color);
+    transition: opacity 0.3s ease;
+}
+
+.logo-image {
+    position: absolute;
+    top: -80%;
+    left: 20%;
+    width: auto;
+    height: 100px; /* Такая же высота как у .navbar-brand */
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.navbar-brand:hover .logo-text {
+    opacity: 0;
+}
+
+.navbar-brand:hover .logo-image {
+    opacity: 1;
+}
+
+.nav-links {
+    display: flex;
+    gap: 25px;
+}
+
+.nav-link {
+    color: var(--light-text);
+    text-decoration: none;
+    font-size: 16px;
+    transition: color 0.3s;
+}
+
+.nav-link:hover {
+    color: var(--primary-color);
+}
+
+.nav-link.active {
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+.auth-buttons {
+    display: flex;
+    gap: 15px;
+}
+
+.btn-auth {
+    padding: 8px 20px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+.btn-login {
+    background-color: transparent;
+    color: var(--light-text);
+    border: 1px solid var(--light-text);
+}
+
+.btn-login:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.btn-register {
+    background-color: var(--primary-color);
+    color: var(--light-text);
+    border: 1px solid var(--primary-color);
+}
+
+.btn-register:hover {
+    background-color: #f40612;
+}
+
+
+/* кнопки при заходе в аккаунт */
+.auth-buttons {
+    display: flex;
+    gap: 15px;
+}
+
+.btn-auth-user {
+    padding: 8px 20px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+
+.btn-profile {
+    background-color: transparent;
+    color: var(--light-text);
+    border: 1px solid var(--light-text)
+}
+
+.btn-profile:hover {
+    background-color: #45a049;
+}
+
+/* Стили для кнопки "Выйти" */
+.btn-logout {
+    background-color: #f40612;
+    color: #fff;
+}
+
+.btn-logout:hover {
+    background-color: #f40612;
+}
+
+
+/* Контейнер профиля */
+.profile-container {
+    margin-top: 40px;
+}
+
+.profile-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.profile-title {
+    color: var(--primary-color);
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.profile-avatar img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--primary-color);
+}
+
+/* Карточки с информацией */
+.profile-info {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 30px;
+}
+
+.info-card {
+    background-color: var(--card-bg);
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.info-card h3 {
+    color: var(--primary-color);
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+}
+
+.info-row {
+    display: flex;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #333;
+}
+
+.info-label {
+    font-weight: bold;
+    width: 200px;
+    color: var(--gray-text);
+}
+
+.info-value {
+    flex: 1;
+}
+
+/* Билеты */
+.ticket-card {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #333;
+}
+
+.ticket-poster img {
+    width: 100px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.ticket-info h4 {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.no-tickets {
+    color: var(--gray-text);
+    font-style: italic;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .profile-info {
+        grid-template-columns: 1fr;
+    }
+
+    .info-row {
+        flex-direction: column;
+    }
+
+    .info-label {
+        width: auto;
+        margin-bottom: 5px;
+    }
+}

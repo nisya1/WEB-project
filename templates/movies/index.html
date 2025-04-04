@@ -34,7 +34,9 @@
                 <button type="submit" class="btn-auth btn-register">Регистрация</button>
             </form>
             {% else %}
-            <a href="" class="btn-auth-user btn-profile">Мой профиль</a>
+            <form action="{{ url_for('auth.profile') }}" method="POST">
+                <button class="btn-auth-user btn-profile">Мой профиль</button>
+            </form>
             <form action="{{ url_for('auth.logout') }}" method="POST">
                 <button type="submit" name="show_modal" value="true" class="btn-auth-user btn-logout">Выйти</button>
             </form>
