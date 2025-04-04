@@ -34,7 +34,6 @@ def register_form():
                     Password=password
                 )
 
-
                 sess1.add(user)
                 sess1.commit()
 
@@ -88,3 +87,13 @@ def logout():
 
     session["show_modal"] = False
     return redirect(url_for('to_movies'))
+
+
+@bp.route('/profile', methods=['POST'])
+def profile():
+    params = {
+        "username": session["name"],
+        "email": session["email"],
+        "tickets": False
+    }
+    return render_template("auth/profile.html", **params)
