@@ -4,8 +4,8 @@ from sqlalchemy import orm
 from data.db_session import SqlAlchemyBase
 
 
-class Events(SqlAlchemyBase):
-    __tablename__ = 'Events'
+class EventGenre(SqlAlchemyBase):
+    __tablename__ = 'EventGenre'
 
     GenreId = sqla.Column(sqla.Integer, primary_key=True, autoincrement=True, nullable=False, unique=True)
     GenreName = sqla.Column(sqla.String, nullable=False, unique=True)

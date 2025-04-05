@@ -68,7 +68,7 @@
                  class="movie-poster">
             <div class="movie-info">
                 <h3 class="movie-title">{{event.Title}}</h3>
-                <p class="movie-genre">Фантастика, {{event.Duration}}</p>
+                <p class="movie-genre">{{genres[event.GenreId - 1]}}, {{event.Duration}}</p>
                 <div class="movie-rating">{{event.Rating}}/10</div>
                 <form action="{{ url_for('movies.movie', event_id=event.EventId) }}" method="GET">
                     <input type="hidden" name="movie_title" value={{event.Title}}>
