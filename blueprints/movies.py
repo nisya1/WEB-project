@@ -1,5 +1,5 @@
 import flask
-from flask import render_template, request, session
+from flask import render_template, request, session, redirect
 from data.db_session import global_init, create_session
 from data.posters_models.events import Events
 from data.posters_models.eventgenre import EventGenre
@@ -78,4 +78,11 @@ def movie(event_id: int):
 
 @bp.route('/buy_ticket/<event_id>', methods=['POST'])
 def buy_ticket(event_id: int):
-    pass
+    booked_seats = request.form['seats']
+
+    if booked_seats != '':
+        if session['user_active']:
+            sess = create_session()
+            event = sess.query(Events).filter(Events.EventId == event_id).first()
+            print(event, booked_seats)
+    return redirect(session['base_url'])
