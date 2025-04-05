@@ -18,6 +18,7 @@ class Events(SqlAlchemyBase):
     Seats = sqla.Column(sqla.Integer, default=0, nullable=False)
     Price = sqla.Column(sqla.Integer, default=0, nullable=False)
     Time = sqla.Column(sqla.Text, nullable=False)
+    Tickets = sqla.Column(sqla.Text)
     # event = orm.relationship('User')
 
     def __repr__(self):
