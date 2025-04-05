@@ -16,6 +16,7 @@ def movies():
         
     session['user_active'] = session.get('user_active', False)
     session['show_modal'] = session.get('show_modal', False)
+    session['base_url'] = request.base_url
 
     global_init(f"database/posters.db")
     sess = create_session()
@@ -48,20 +49,31 @@ def movies():
 
 @bp.route('/<event_id>', methods=['GET'])
 def movie(event_id: int):
+    session['user_active'] = session.get('user_active', False)
+    session['show_modal'] = session.get('show_modal', False)
+    session['base_url'] = request.base_url
+
     global_init(f"database/posters.db")
-    session = create_session()
-    event = session.query(Events).filter(Events.EventId == event_id).first()
+    sess = create_session()
+    event = sess.query(Events).filter(Events.EventId == event_id).first()
 
     if event:
-        genre = session.query(EventGenre).filter(EventGenre.GenreId == event.GenreId).first()
+        genre = sess.query(EventGenre).filter(EventGenre.GenreId == event.GenreId).first()
         params = {
             'event': event,
             'genre': genre,
+            'user_active': session['user_active'],
+            'show_modal': session['show_modal'],
             'tickets': tuple(map(int, event.Tickets.split(',')))
         }
 
         return render_template('movies/movie.html', **params)
-    return render_template('movies/movie_not_found.html')
+
+    params = {
+        'user_active': session['user_active'],
+        'show_modal': session['show_modal'],
+    }
+    return render_template('movies/movie_not_found.html', **params)
 
 
 @bp.route('/buy_ticket/<event_id>', methods=['POST'])

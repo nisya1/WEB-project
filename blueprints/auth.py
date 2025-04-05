@@ -85,18 +85,24 @@ def logout():
     elif 'show_modal' in request.form:
         # Показываем страницу с модальным окном
         session["show_modal"] = True
-        return redirect(url_for('to_movies'))
+        return redirect(session['base_url'])
 
     session["show_modal"] = False
-    return redirect(url_for('to_movies'))
+    return redirect(session['base_url'])
 
 
-@bp.route('/profile', methods=['POST'])
+@bp.route('/profile', methods=['GET'])
 def profile():
+    session['user_active'] = session.get('user_active', False)
+    session['show_modal'] = session.get('show_modal', False)
+    session['base_url'] = request.base_url
+
     params = {
         "username": session["name"],
         "email": session["email"],
         "tickets": False,
-        "is_admin": session["role"] == 1
+        "is_admin": session["role"] == 1,
+        'user_active': session['user_active'],
+        'show_modal': session['show_modal'],
     }
     return render_template("auth/profile.html", **params)
