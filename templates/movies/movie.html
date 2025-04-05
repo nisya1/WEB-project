@@ -107,7 +107,9 @@
             <h6>Стоимость:</h6>
             <p id="total-price">0 руб.</p>
           </div>
-          <button class="btn-checkout w-100 mt-3">Перейти к оплате</button>
+            <form action="{{ url_for('movies.buy_ticket', event_id=event.EventId) }}" method="POST">
+                <button id='book-button' onclick="getSeats()" type="submit" name="seats" value="" class="btn-checkout w-100 mt-3">Перейти к оплате</button>
+            </form>
         </div>
       </div>
     </div>
@@ -146,6 +148,19 @@
         selectedSeats.length > 0 ? seatsList : 'Не выбраны';
       document.getElementById('total-price').textContent =
         selectedSeats.length > 0 ? `${totalPrice} руб.` : '0 руб.';
+    }
+
+    function getSeats() {
+      const toBookButton = document.getElementById('book-button');
+      const selectedSeats = document.querySelectorAll('.seat.selected');
+      const seatsList = Array.from(selectedSeats).map(seat => seat.dataset.seat).join(',');
+
+      if (seatsList !== '') {
+        toBookButton.value = seatsList;
+      } else {
+        alert('Места не выбраны');
+      }
+
     }
   </script>
 </body>
