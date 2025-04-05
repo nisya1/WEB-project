@@ -13,6 +13,7 @@ class Users(SqlAlchemyBase):
     RoleId = sqla.Column(sqla.Integer, sqla.ForeignKey('Roles.RoleId'), nullable=False, default=2)
     Email = sqla.Column(sqla.String, nullable=False, unique=True)
     Password = sqla.Column(sqla.String, nullable=False)
+    Tickets = sqla.Column(sqla.String)
 
     def __repr__(self):
         return f'<User {self.Name}>'
