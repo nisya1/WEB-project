@@ -59,30 +59,19 @@
           <h4 class="mb-3">Выберите места</h4>
           <div class="screen">ЭКРАН</div>
           <div class="text-center" id="seats-map">
-            <!-- Ряд A -->
-            <div class="d-flex justify-content-center mb-2">
-              <div class="seat" data-seat="A1">A1</div>
-              <div class="seat" data-seat="A2">A2</div>
-              <div class="seat" data-seat="A3">A3</div>
-              <div class="seat" data-seat="A4">A4</div>
-              <div class="seat" data-seat="A5">A5</div>
-            </div>
-            <!-- Ряд B -->
-            <div class="d-flex justify-content-center mb-2">
-              <div class="seat vip" data-seat="B1">B1</div>
-              <div class="seat vip" data-seat="B2">B2</div>
-              <div class="seat occupied" data-seat="B3">B3</div>
-              <div class="seat vip" data-seat="B4">B4</div>
-              <div class="seat vip" data-seat="B5">B5</div>
-            </div>
-            <!-- Ряд C -->
-            <div class="d-flex justify-content-center mb-2">
-              <div class="seat" data-seat="C1">C1</div>
-              <div class="seat" data-seat="C2">C2</div>
-              <div class="seat" data-seat="C3">C3</div>
-              <div class="seat" data-seat="C4">C4</div>
-              <div class="seat" data-seat="C5">C5</div>
-            </div>
+
+            {% for line in range(1, event.Seats // 5 + 1) %}
+              <div class="d-flex justify-content-center mb-2">
+                {% for i in range((line - 1) * 5 + 1, line * 5 + 1) %}
+                  {% if i in tickets %}
+                    <div class="seat" data-seat="{{i}}">{{i}}</div>
+                  {% else %}
+                    <div class="seat occupied" data-seat="{{i}}">{{i}}</div>
+                  {% endif %}
+                {% endfor %}
+              </div>
+            {% endfor %}
+
           </div>
         </div>
       </div>
@@ -126,7 +115,7 @@
     function updateOrderSummary() {
       const selectedSeats = document.querySelectorAll('.seat.selected');
       const seatsList = Array.from(selectedSeats).map(seat => seat.dataset.seat).join(', ');
-      const totalPrice = selectedSeats.length * {{event.Price}}; // 500 руб. за место
+      const totalPrice = selectedSeats.length * {{event.Price}};
 
       document.getElementById('selected-seats').textContent =
         selectedSeats.length > 0 ? seatsList : 'Не выбраны';

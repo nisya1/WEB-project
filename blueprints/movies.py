@@ -54,7 +54,13 @@ def movie(event_id: int):
     genre = session.query(EventGenre).filter(EventGenre.GenreId == event.GenreId).first()
 
     if event:
-        return render_template('movies/movie.html', event=event, genre=genre)
+        params = {
+            'event': event,
+            'genre': genre,
+            'tickets': tuple(map(int, event.Tickets.split(',')))
+        }
+
+        return render_template('movies/movie.html', **params)
     return render_template('movies/movie_not_found.html')
 
 
