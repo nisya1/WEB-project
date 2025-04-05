@@ -41,6 +41,7 @@ def register_form():
                 session["email"] = email
                 session["password"] = password
                 session["user_active"] = True
+                session["role"] = 2
 
                 return redirect(url_for('to_movies'))
 
@@ -63,6 +64,7 @@ def login_form():
                 session["email"] = email
                 session["password"] = password
                 session["user_active"] = True
+                session["role"] = user.RoleId
 
                 return redirect(url_for('to_movies'))
 
@@ -94,6 +96,7 @@ def profile():
     params = {
         "username": session["name"],
         "email": session["email"],
-        "tickets": False
+        "tickets": False,
+        "is_admin": session["role"] == 1
     }
     return render_template("auth/profile.html", **params)
