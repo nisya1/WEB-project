@@ -73,13 +73,13 @@
                 {% for ticket in tickets %}
                 <div class="ticket-card">
                     <div class="ticket-poster">
-                        <img src="{{ url_for('static', filename='movies/images/' + ticket.movie_image) }}" alt="{{ ticket.movie_title }}">
+                        <img src="{{ url_for('static', filename='movies/images/' + ticket[0].ImageName) }}" alt="{{ ticket[0].EventTitle }}">
                     </div>
                     <div class="ticket-info">
-                        <h4>{{ ticket.movie_title }}</h4>
-                        <p>Дата: {{ ticket.session_date }}</p>
-                        <p>Время: {{ ticket.session_time }}</p>
-                        <p>Место: {{ ticket.seat_number }}</p>
+                        <h4>{{ ticket.EventTitle }}</h4>
+                        <p>Дата: {{ ticket[0].Time }}</p>
+                        <p>Время: {{ ticket[0].Duration }}</p>
+                        <p>Место(a): {{ ticket[1] }}</p>
                     </div>
                 </div>
                 {% endfor %}

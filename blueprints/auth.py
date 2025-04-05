@@ -1,5 +1,6 @@
 import flask
 from flask import render_template, request, session, redirect, url_for, flash
+from data.posters_models.events import Events
 
 from data.db_session import global_init, create_session
 from data.users_models.users import Users
@@ -40,6 +41,7 @@ def register_form():
                 session["name"] = name
                 session["email"] = email
                 session["password"] = password
+                session["tickets"] = user.Tickets
                 session["user_active"] = True
                 session["role"] = 2
 
@@ -63,6 +65,7 @@ def login_form():
                 session["name"] = user.Name
                 session["email"] = email
                 session["password"] = password
+                session["tickets"] = user.Tickets
                 session["user_active"] = True
                 session["role"] = user.RoleId
 
@@ -97,10 +100,21 @@ def profile():
     session['show_modal'] = session.get('show_modal', False)
     session['base_url'] = request.base_url
 
+    global_init(f"database/posters.db")
+    sess = create_session()
+    tickets = session['tickets'].split(';')
+    events_to_render = list()
+
+    for curr in tickets:
+        if curr != '':
+            key, value = curr.split(':')
+            event = sess.query(Events).filter(Events.EventId == key).first()
+            events_to_render.append((event, value))
+
     params = {
         "username": session["name"],
         "email": session["email"],
-        "tickets": False,
+        "tickets": events_to_render,
         "is_admin": session["role"] == 1,
         'user_active': session['user_active'],
         'show_modal': session['show_modal'],
