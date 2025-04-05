@@ -51,9 +51,9 @@ def movie(event_id: int):
     global_init(f"database/posters.db")
     session = create_session()
     event = session.query(Events).filter(Events.EventId == event_id).first()
-    genre = session.query(EventGenre).filter(EventGenre.GenreId == event.GenreId).first()
 
     if event:
+        genre = session.query(EventGenre).filter(EventGenre.GenreId == event.GenreId).first()
         params = {
             'event': event,
             'genre': genre,
