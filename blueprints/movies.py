@@ -59,12 +59,18 @@ def movie(event_id: int):
 
     if event:
         genre = sess.query(EventGenre).filter(EventGenre.GenreId == event.GenreId).first()
+
+        if ',' in event.Tickets:
+            tickets = tuple()
+        else:
+            tickets = tuple(map(int, event.Tickets.split(',')))
+
         params = {
             'event': event,
             'genre': genre,
             'user_active': session['user_active'],
             'show_modal': session['show_modal'],
-            'tickets': tuple(map(int, event.Tickets.split(',')[:-1]))
+            'tickets': tickets
         }
 
         return render_template('movies/movie.html', **params)
@@ -84,15 +90,14 @@ def buy_ticket(event_id: int):
         if session['user_active']:
             sess = create_session()
             event = sess.query(Events).filter(Events.EventId == event_id).first()
-            seats = event.Tickets
-            print('222')
+            seats = event.Tickets.split(',')
 
             for seat in booked_seats.split(','):
-                seats = seats.replace(f'{seat},', '')
+                seats.remove(seat)
+            seats = ','.join(seats)
 
             event.Tickets = seats
             sess.commit()
-            print('111')
 
             global_init(f"database/users.db")
             sess1 = create_session()
