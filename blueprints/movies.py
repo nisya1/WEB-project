@@ -1,9 +1,9 @@
 import flask
-from flask import render_template, request, session, redirect
+from flask import render_template, request, session, redirect, flash
 from data.db_session import global_init, create_session
 from data.posters_models.events import Events
 from data.posters_models.eventgenre import EventGenre
-
+from data.users_models.users import Users
 
 bp = flask.Blueprint("movies", __name__, url_prefix="/movies")
 
@@ -64,7 +64,7 @@ def movie(event_id: int):
             'genre': genre,
             'user_active': session['user_active'],
             'show_modal': session['show_modal'],
-            'tickets': tuple(map(int, event.Tickets.split(',')))
+            'tickets': tuple(map(int, event.Tickets.split(',')[:-1]))
         }
 
         return render_template('movies/movie.html', **params)
@@ -84,5 +84,28 @@ def buy_ticket(event_id: int):
         if session['user_active']:
             sess = create_session()
             event = sess.query(Events).filter(Events.EventId == event_id).first()
+            seats = event.Tickets
+            print('222')
+
+            for seat in booked_seats.split(','):
+                seats = seats.replace(f'{seat},', '')
+
+            event.Tickets = seats
+            sess.commit()
+            print('111')
+
+            global_init(f"database/users.db")
+            sess1 = create_session()
+            user = sess1.query(Users).filter(Users.Name == session['name']).first()
+            tickets = user.Tickets
+            tickets += f'{event.EventId}:{booked_seats};'
+            user.Tickets = tickets
+            sess1.commit()
+            sess1.expunge_all()
+            sess.close()
+
             print(event, booked_seats)
+            return redirect(session['base_url'])
+        else:
+            flash('Войдите в аккаунт')
     return redirect(session['base_url'])
