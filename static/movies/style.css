@@ -428,3 +428,9 @@ body {
 .btn-cancel:hover {
     border-color: var(--light-text);
 }
+
+.alert-error {
+    padding: 15px 0;
+    color: #D8BFD8;
+    text-align: center;
+}
