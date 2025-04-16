@@ -10,16 +10,13 @@ class Events(SqlAlchemyBase):
     EventId = sqla.Column(sqla.Integer, primary_key=True, autoincrement=True, nullable=False, unique=True)
     Title = sqla.Column(sqla.String, nullable=False)
     GenreId = sqla.Column(sqla.Integer, nullable=False)
-    TypeId = sqla.Column(sqla.Integer, nullable=False)
     Rating = sqla.Column(sqla.Text, default=0, nullable=False)
     Duration = sqla.Column(sqla.String, default='00:00', nullable=False)
-    ImageId = sqla.Column(sqla.Integer, nullable=False)
     ImageName = sqla.Column(sqla.Text, default=True)
     Seats = sqla.Column(sqla.Integer, default=0, nullable=False)
     Price = sqla.Column(sqla.Integer, default=0, nullable=False)
-    Time = sqla.Column(sqla.Text, nullable=False)
+    Time = sqla.Column(sqla.String, nullable=False)
     Tickets = sqla.Column(sqla.Text)
-    # event = orm.relationship('User')
 
     def __repr__(self):
         return f'{self.Title}'

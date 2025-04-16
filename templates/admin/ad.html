@@ -13,7 +13,8 @@
     <div class="container">
         <a href="/movies" class="navbar-brand">
             <span class="logo-text">КИНОТЕКА</span>
-            <img src="{{ url_for('static', filename='movies/images/logo-hover.png') }}" class="logo-image" alt="Кинотека">
+            <img src="{{ url_for('static', filename='movies/images/logo-hover.png') }}" class="logo-image"
+                 alt="Кинотека">
         </a>
 
         <div class="nav-links">
@@ -40,7 +41,7 @@
         <!-- Блок 1: Добавление нового фильма -->
         <div class="add-movie-form">
             <h2>Добавить новый фильм</h2>
-            <form method="POST" enctype="multipart/form-data" action="">
+            <form method="POST" enctype="multipart/form-data" action="{{ url_for('admin_page.add_films') }}">
 
                 <div class="form-row">
                     <div class="form-group">
@@ -67,11 +68,11 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="new_session_date">дата сеанса</label>
-                        <input type="date" id="new_session_date" name="session_time" required>
+                        <input type="date" id="new_session_date" name="session_date" required>
                     </div>
                     <div class="form-group">
                         <label for="new_session_time">время сеанса</label>
-                        <input type="time" id="new_session_time" name="duration" required>
+                        <input type="time" id="new_session_time" name="session_time" required>
                     </div>
                 </div>
 
@@ -95,11 +96,13 @@
             <h2>Список фильмов</h2>
             <div class="movie-list-container">
                 {% for movie in movies %}
-                    <div class="movie-item" data-movie-id="{{ movie.id }}" onclick="selectMovie(this)">
-                        <img src="{{ url_for('static', filename='movies/images/' + movie.ImageName) }}" alt="{{ movie.Title }}">
+                    <div class="movie-item" data-movie-id="{{ movie.EventId }}" movie-rating="{{ movie.Rating }}"
+                         onclick="selectMovie(this)">
+                        <img src="{{ url_for('static', filename='movies/images/' + movie.ImageName) }}"
+                             alt="{{ movie.Title }}">
                         <div class="movie-info">
                             <h3>{{ movie.Title }}</h3>
-                            <p>{{genres[movie.GenreId - 1]}} | {{ movie.Duration }}</p>
+                            <p>{{ genres[movie.GenreId - 1] }} | {{ movie.Duration }}</p>
                         </div>
                     </div>
                 {% endfor %}
@@ -156,32 +159,38 @@
 
                 <div class="form-actions">
                     <button type="submit" class="btn-save">Сохранить изменения</button>
-                    <button type="button" class="btn-delete" onclick="deleteMovie()">Удалить фильм</button>
                 </div>
+            </form>
+            <form method="POST" action="{{ url_for('admin_page.delete_films') }}" id="editFormDelete">
+                <input type="hidden" id="delete_id" name="delete_movie_id">
+                <button type="submit" class="btn-delete">Удалить фильм</button>
             </form>
         </div>
     </div>
 </div>
 
 <script>
-function selectMovie(element) {
-    const movieId = element.getAttribute('data-movie-id');
-    const movieTitle = element.querySelector('h3').textContent;
-    const movieInfo = element.querySelector('p').textContent.split(' | ');
+    function selectMovie(element) {
+        const movieId = element.getAttribute('data-movie-id');
+        const movieRating = element.getAttribute('movie-rating');
+        const movieTitle = element.querySelector('h3').textContent;
+        const movieInfo = element.querySelector('p').textContent.split(' | ');
 
-    // Заполняем форму редактирования
-    document.getElementById('edit_id').value = movieId;
-    document.getElementById('edit_title').value = movieTitle;
-    document.getElementById('edit_genre').value = movieInfo[0];
-    document.getElementById('edit_duration').value = movieInfo[1].replace(' мин', '');
-    document.getElementById('edit_image_preview').src = element.querySelector('img').src;
+        // Заполняем форму редактирования
+        document.getElementById('edit_id').value = movieId;
+        document.getElementById('delete_id').value = movieId;
+        document.getElementById('edit_title').value = movieTitle;
+        document.getElementById('edit_genre').value = movieInfo[0];
+        document.getElementById('edit_rating').value = movieRating;
+        document.getElementById('edit_duration').value = movieInfo[1].replace(' мин', '');
+        document.getElementById('edit_image_preview').src = element.querySelector('img').src;
 
-    // Активируем форму редактирования
-    document.getElementById('editForm').style.display = 'block';
+        // Активируем форму редактирования
+        document.getElementById('editForm').style.display = 'block';
 
-    // Прокрутка к форме редактирования
-    document.getElementById('editForm').scrollIntoView({ behavior: 'smooth' });
-}
+        // Прокрутка к форме редактирования
+        document.getElementById('editForm').scrollIntoView({behavior: 'smooth'});
+    }
 
 </script>
 

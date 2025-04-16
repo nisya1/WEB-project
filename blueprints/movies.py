@@ -26,17 +26,6 @@ def movies():
     if search:
         events = [event for event in events if search.lower() in event.Title.lower()]
 
-    # new_event = Events(
-    #     Title="DANDADAN",
-    #     GenreId=1,
-    #     TypeId=1,
-    #     Rating=9.4,
-    #     Duration="10:00",
-    #     Image="010001"
-    # )
-    # session.add(new_event)
-    # session.commit()
-
     params = {
         "events": events,
         "genres": genres,

@@ -102,14 +102,15 @@ def profile():
 
     global_init(f"database/posters.db")
     sess = create_session()
-    tickets = session['tickets'].split(';')
     events_to_render = list()
+    if session['tickets'] is not None:
+        tickets = session['tickets'].split(';')
 
-    for curr in tickets:
-        if curr != '':
-            key, value = curr.split(':')
-            event = sess.query(Events).filter(Events.EventId == key).first()
-            events_to_render.append((event, value))
+        for curr in tickets:
+            if curr != '':
+                key, value = curr.split(':')
+                event = sess.query(Events).filter(Events.EventId == key).first()
+                events_to_render.append((event, value))
 
     params = {
         "username": session["name"],
