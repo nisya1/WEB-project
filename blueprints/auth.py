@@ -100,6 +100,17 @@ def profile():
     session['show_modal'] = session.get('show_modal', False)
     session['base_url'] = request.base_url
 
+    global_init(f"database/users.db")
+    sess = create_session()
+    user = sess.query(Users).filter(Users.Email == session['email']).first()
+    if user:
+        session["name"] = user.Name
+        session["email"] = user.Email
+        session["password"] = user.Password
+        session["tickets"] = user.Tickets
+        session["user_active"] = True
+        session["role"] = user.RoleId
+
     global_init(f"database/posters.db")
     sess = create_session()
     events_to_render = list()
