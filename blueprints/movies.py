@@ -61,7 +61,6 @@ def movie(event_id: int):
             'show_modal': session['show_modal'],
             'tickets': tickets
         }
-        print(params)
 
         return render_template('movies/movie.html', **params)
 

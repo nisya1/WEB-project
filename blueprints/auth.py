@@ -1,5 +1,5 @@
 import flask
-from flask import render_template, request, session, redirect, url_for, flash
+from flask import render_template, request, session, redirect, url_for, flash, abort
 from data.posters_models.events import Events
 
 from data.db_session import global_init, create_session
@@ -96,6 +96,9 @@ def logout():
 
 @bp.route('/profile', methods=['GET'])
 def profile():
+    if not session["user_active"]:
+        return abort(404)
+
     session['user_active'] = session.get('user_active', False)
     session['show_modal'] = session.get('show_modal', False)
     session['base_url'] = request.base_url
