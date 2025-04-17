@@ -1,9 +1,12 @@
 import flask
+import os
 from flask import render_template, session, abort, request, redirect, url_for
 from data.db_session import global_init, create_session
 from data.posters_models.events import Events
 from data.posters_models.eventgenre import EventGenre
 from datetime import datetime
+from werkzeug.utils import secure_filename
+from uuid import uuid4
 
 bp = flask.Blueprint("admin_page", __name__, url_prefix="/admin_page")
 
@@ -39,14 +42,20 @@ def add_films():
     session_date = datetime.strptime(session_date, "%Y-%m-%d").strftime("%d.%m.%Y")
     session_time = request.form.get("session_time")
     price = request.form.get("price")
-    image = request.form.get("image")
+    image = request.files["image"]
+
+    upload_folder = os.path.join('static', 'movies', 'images')
+    os.makedirs(upload_folder, exist_ok=True)
+    filename = f"{uuid4()}_{secure_filename(image.filename)}"
+    filepath = os.path.join(upload_folder, filename)
+    image.save(filepath)
 
     movie = Events(
         Title=name,
         GenreId=2,
         Rating=rating,
         Duration=duration,
-        ImageName="asdasa",
+        ImageName=filename,
         Seats=15,
         Price=price,
         Time=f"{session_date} {session_time}"
@@ -60,6 +69,11 @@ def add_films():
 @bp.route("/delete_film", methods=['POST'])
 def delete_films():
     id = request.form.get("delete_movie_id")
+    image_name = request.form.get("delete_image_name")
+
+    upload_folder = os.path.join('static', 'movies', 'images')
+    filepath = os.path.join(upload_folder, image_name)
+    os.remove(filepath)
 
     global_init(f"database/posters.db")
     sess = create_session()

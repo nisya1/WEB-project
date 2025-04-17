@@ -96,7 +96,7 @@
             <h2>Список фильмов</h2>
             <div class="movie-list-container">
                 {% for movie in movies %}
-                    <div class="movie-item" data-movie-id="{{ movie.EventId }}" movie-rating="{{ movie.Rating }}"
+                    <div class="movie-item" data-movie-id="{{ movie.EventId }}" movie-rating="{{ movie.Rating }}" movie-name="{{ movie.ImageName }}"
                          onclick="selectMovie(this)">
                         <img src="{{ url_for('static', filename='movies/images/' + movie.ImageName) }}"
                              alt="{{ movie.Title }}">
@@ -163,6 +163,7 @@
             </form>
             <form method="POST" action="{{ url_for('admin_page.delete_films') }}" id="editFormDelete">
                 <input type="hidden" id="delete_id" name="delete_movie_id">
+                <input type="hidden" id="delete_image" name="delete_image_name" value="">
                 <button type="submit" class="btn-delete">Удалить фильм</button>
             </form>
         </div>
@@ -173,6 +174,7 @@
     function selectMovie(element) {
         const movieId = element.getAttribute('data-movie-id');
         const movieRating = element.getAttribute('movie-rating');
+        const movieName = element.getAttribute('movie-name');
         const movieTitle = element.querySelector('h3').textContent;
         const movieInfo = element.querySelector('p').textContent.split(' | ');
 
@@ -184,6 +186,7 @@
         document.getElementById('edit_rating').value = movieRating;
         document.getElementById('edit_duration').value = movieInfo[1].replace(' мин', '');
         document.getElementById('edit_image_preview').src = element.querySelector('img').src;
+        document.getElementById('delete_image').value = movieName
 
         // Активируем форму редактирования
         document.getElementById('editForm').style.display = 'block';
