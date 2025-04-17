@@ -35,7 +35,7 @@ def add_films():
     sess = create_session()
 
     name = request.form.get("title")
-    genre = request.form.get("genre")
+    genre_name = request.form.get("genre")
     rating = request.form.get("rating")
     duration = request.form.get("duration")
     session_date = request.form.get("session_date")
@@ -43,6 +43,7 @@ def add_films():
     session_time = request.form.get("session_time")
     price = request.form.get("price")
     image = request.files["image"]
+    genre = sess.query(EventGenre).filter(EventGenre.GenreName == genre_name).first()
 
     upload_folder = os.path.join('static', 'movies', 'images')
     os.makedirs(upload_folder, exist_ok=True)
@@ -52,7 +53,7 @@ def add_films():
 
     movie = Events(
         Title=name,
-        GenreId=2,
+        GenreId=genre.GenreId,
         Rating=rating,
         Duration=duration,
         ImageName=filename,
