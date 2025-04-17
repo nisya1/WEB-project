@@ -93,7 +93,12 @@ def buy_ticket(event_id: int):
             sess1 = create_session()
             user = sess1.query(Users).filter(Users.Name == session['name']).first()
             tickets = user.Tickets
-            tickets += f'{event.EventId}:{booked_seats};'
+
+            if tickets:
+                tickets += f'{event.EventId}:{booked_seats};'
+            else:
+                tickets = f'{event.EventId}:{booked_seats};'
+
             user.Tickets = tickets
             sess1.commit()
             sess1.expunge_all()
