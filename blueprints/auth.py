@@ -1,5 +1,6 @@
 import flask
 from flask import render_template, request, session, redirect, url_for, flash, abort
+from bcrypt import hashpw, checkpw, gensalt
 from data.posters_models.events import Events
 
 from data.db_session import global_init, create_session
@@ -32,7 +33,7 @@ def register_form():
                 user = Users(
                     Name=name,
                     Email=email,
-                    Password=password
+                    Password=str(hashpw(bytes(password, 'UTF8'), gensalt()), 'UTF8')
                 )
 
                 sess1.add(user)
@@ -40,7 +41,7 @@ def register_form():
 
                 session["name"] = name
                 session["email"] = email
-                session["password"] = password
+                session["password"] = user.Password
                 session["tickets"] = user.Tickets
                 session["user_active"] = True
                 session["role"] = 2
@@ -61,7 +62,7 @@ def login_form():
         user = sess1.query(Users).filter(Users.Email == email).first()
 
         if user:
-            if user.Password == password:
+            if checkpw(bytes(password, 'UTF8'), bytes(user.Password, 'UTF8')):
                 session["name"] = user.Name
                 session["email"] = email
                 session["password"] = password
