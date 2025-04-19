@@ -72,11 +72,14 @@ def add_films():
 @bp.route("/delete_film", methods=['POST'])
 def delete_films():
     id = request.form.get("delete_movie_id")
-    image_name = request.form.get("delete_image_name")
+    try:
+        image_name = request.form.get("delete_image_name")
 
-    upload_folder = os.path.join('static', 'movies', 'images')
-    filepath = os.path.join(upload_folder, image_name)
-    os.remove(filepath)
+        upload_folder = os.path.join('static', 'movies', 'images')
+        filepath = os.path.join(upload_folder, image_name)
+        os.remove(filepath)
+    except:
+        pass
 
     global_init(f"database/posters.db")
     sess = create_session()
@@ -84,6 +87,59 @@ def delete_films():
     film = sess.query(Events).filter(Events.EventId == id).first()
 
     sess.delete(film)
+    sess.commit()
+
+    return redirect(url_for('to_movies'))
+
+
+@bp.route("/change_films", methods=['POST'])
+def change_films():
+    global_init(f"database/posters.db")
+    sess = create_session()
+
+    movie_id = request.form.get("movie_id")
+    old_image_name = request.form.get("old_image")
+
+    name = request.form.get("title")
+    genre_name = request.form.get("genre")
+    genre = sess.query(EventGenre).filter(EventGenre.GenreName == genre_name).first().GenreId
+
+    rating = request.form.get("rating")
+    duration = request.form.get("duration")
+
+    session_date = request.form.get("session_date")
+    session_date = datetime.strptime(session_date, "%Y-%m-%d").strftime("%d.%m.%Y")
+    session_time = request.form.get("session_time")
+
+    price = request.form.get("price")
+    image = request.files["image"]
+
+    movie = sess.query(Events).filter(Events.EventId == movie_id).first()
+
+
+    movie.Title = name
+    movie.GenreId = genre
+    movie.Rating = rating
+    movie.Duration = duration
+    movie.Time = f"{session_date} {session_time}"
+    movie.Price = price
+
+    if image:
+        try:
+            upload_folder = os.path.join('static', 'movies', 'images')
+            filepath = os.path.join(upload_folder, old_image_name)
+            os.remove(filepath)
+        except:
+            pass
+
+        upload_folder = os.path.join('static', 'movies', 'images')
+        os.makedirs(upload_folder, exist_ok=True)
+        filename = f"{uuid4()}_{secure_filename(image.filename)}"
+        filepath = os.path.join(upload_folder, filename)
+        image.save(filepath)
+
+        movie.ImageName = filename
+
     sess.commit()
 
     return redirect(url_for('to_movies'))
