@@ -1,50 +1,13 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
+{% extends "base.html" %}
+{% block head %}
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Кинотека - Покупка билета</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="{{ url_for('static', filename='movies/style.css') }}">
-</head>
-<body>
-  <!-- Навигация -->
-  <nav class="navbar">
-    <div class="container">
+{% endblock %}
 
-        <a href="/movies" class="navbar-brand">
-            <span class="logo-text">КИНОТЕКА</span>
-            <img src="{{ url_for('static', filename='movies/images/logo-hover.png') }}" class="logo-image"
-                 alt="Кинотека">
-        </a>
-
-        <div class="nav-links">
-            <a href="/movies" class="nav-link">Фильмы</a>
-            <a href="#" class="nav-link">Новинки</a>
-            <a href="#" class="nav-link">Скоро</a>
-            <a href="#" class="nav-link">Рейтинги</a>
-        </div>
-
-        <div class="auth-buttons">
-            {% if not user_active %}
-            <form action="{{ url_for('auth.login_form') }}" method="GET">
-                <button type="submit" class="btn-auth btn-login">Войти</button>
-            </form>
-            <form action="{{ url_for('auth.register_form') }}" method="GET">
-                <button type="submit" class="btn-auth btn-register">Регистрация</button>
-            </form>
-            {% else %}
-            <form action="{{ url_for('auth.profile') }}" method="GET">
-                <button class="btn-auth-user btn-profile">Мой профиль</button>
-            </form>
-            <form action="{{ url_for('auth.logout') }}" method="POST">
-                <button type="submit" name="show_modal" value="true" class="btn-auth-user btn-logout">Выйти</button>
-            </form>
-            {% endif %}
-        </div>
-    </div>
-  </nav>
-
+{% block content %}
   <!-- Основной контент -->
   <div class="container my-5">
     <div class="row">
@@ -125,20 +88,20 @@
       </div>
     </div>
   </div>
-{% if show_modal %}
-<div class="modal-overlay">
-    <div class="modal-content">
-        <form action="{{ url_for('auth.logout') }}" method="POST">
-            <h3>Подтверждение выхода</h3>
-            <p>Вы действительно хотите выйти из аккаунта?</p>
-            <div class="modal-buttons">
-                <button type="submit" name="confirm_logout" value="true" class="btn-confirm">Выйти</button>
-                <button type="submit" class="btn-cancel">Отмена</button>
-            </div>
-        </form>
+    {% if show_modal %}
+    <div class="modal-overlay">
+        <div class="modal-content">
+            <form action="{{ url_for('auth.logout') }}" method="POST">
+                <h3>Подтверждение выхода</h3>
+                <p>Вы действительно хотите выйти из аккаунта?</p>
+                <div class="modal-buttons">
+                    <button type="submit" name="confirm_logout" value="true" class="btn-confirm">Выйти</button>
+                    <button type="submit" class="btn-cancel">Отмена</button>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
-{% endif %}
+    {% endif %}
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script>
@@ -174,5 +137,4 @@
 
     }
   </script>
-</body>
-</html>
+{% endblock %}

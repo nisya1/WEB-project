@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    {% block head %}
+    {% endblock %}
+</head>
+<body>
+      <!-- Навигация -->
+  <nav class="navbar">
+    <div class="container">
+
+        <a href="/movies" class="navbar-brand">
+            <span class="logo-text">КИНОТЕКА</span>
+            <img src="{{ url_for('static', filename='movies/images/logo-hover.png') }}" class="logo-image"
+                 alt="Кинотека">
+        </a>
+
+        <div class="nav-links">
+            <a href="/movies" class="nav-link">Фильмы</a>
+            <a href="#" class="nav-link">Новинки</a>
+            <a href="#" class="nav-link">Скоро</a>
+            <a href="#" class="nav-link">Рейтинги</a>
+        </div>
+
+        <div class="auth-buttons">
+            {% if not user_active %}
+            <form action="{{ url_for('auth.login_form') }}" method="GET">
+                <button type="submit" class="btn-auth btn-login">Войти</button>
+            </form>
+            <form action="{{ url_for('auth.register_form') }}" method="GET">
+                <button type="submit" class="btn-auth btn-register">Регистрация</button>
+            </form>
+            {% else %}
+            <form action="{{ url_for('auth.profile') }}" method="GET">
+                <button class="btn-auth-user btn-profile">Мой профиль</button>
+            </form>
+            <form action="{{ url_for('auth.logout') }}" method="POST">
+                <button type="submit" name="show_modal" value="true" class="btn-auth-user btn-logout">Выйти</button>
+            </form>
+            {% endif %}
+        </div>
+    </div>
+  </nav>
+    <div id="content">{% block content %}{% endblock %}</div>
+</body>
+</html>

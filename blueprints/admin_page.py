@@ -22,6 +22,7 @@ def page_open():
     genres = sess.query(EventGenre).all()
 
     params = {
+        'user_active': session['user_active'],
         "movies": movies,
         "genres": genres,
     }

@@ -108,6 +108,16 @@ body {
     border: 1px solid var(--light-text);
 }
 
+.btn-register {
+    background-color: var(--primary-color);
+    color: var(--light-text);
+    border: 1px solid var(--primary-color);
+}
+
+.btn-register:hover {
+    background-color: #f40612;
+}
+
 .btn-login:hover {
     background-color: rgba(255, 255, 255, 0.1);
 }
