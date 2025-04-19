@@ -1,6 +1,10 @@
 import blueprints.movies, blueprints.auth, blueprints.admin_page
+from api.auth.profile import UserProfileApi
+from api.movies.movies import AllMoviesApi
 from random import choice
 from flask import Flask, redirect, session, render_template
+from flask_restful import Api
+
 
 app = Flask(__name__)
 app.secret_key = choice(["1", '2', '3'])
@@ -8,6 +12,10 @@ app.secret_key = choice(["1", '2', '3'])
 app.register_blueprint(blueprints.movies.bp)
 app.register_blueprint(blueprints.auth.bp)
 app.register_blueprint(blueprints.admin_page.bp)
+
+api = Api(app)
+api.add_resource(UserProfileApi, '/api/profile/<user_name>')
+api.add_resource(AllMoviesApi, '/api/movies/all')
 
 
 @app.route('/')
