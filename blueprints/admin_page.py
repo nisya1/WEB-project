@@ -71,7 +71,8 @@ def add_films():
 
 @bp.route("/delete_film", methods=['POST'])
 def delete_films():
-    id = request.form.get("delete_movie_id")
+    movie_id = request.form.get("delete_movie_id")
+
     try:
         image_name = request.form.get("delete_image_name")
 
@@ -84,7 +85,7 @@ def delete_films():
     global_init(f"database/posters.db")
     sess = create_session()
 
-    film = sess.query(Events).filter(Events.EventId == id).first()
+    film = sess.query(Events).filter(Events.EventId == movie_id).first()
 
     sess.delete(film)
     sess.commit()
