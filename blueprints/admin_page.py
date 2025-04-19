@@ -60,7 +60,8 @@ def add_films():
         ImageName=filename,
         Seats=15,
         Price=price,
-        Time=f"{session_date} {session_time}"
+        Time=f"{session_date} {session_time}",
+        Tickets="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15"
     )
 
     sess.add(movie)
