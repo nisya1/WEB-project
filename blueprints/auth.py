@@ -125,7 +125,8 @@ def profile():
             if curr != '':
                 key, value = curr.split(':')
                 event = sess.query(Events).filter(Events.EventId == key).first()
-                events_to_render.append((event, value))
+                if event:
+                    events_to_render.append((event, value))
 
     params = {
         "username": session["name"],
