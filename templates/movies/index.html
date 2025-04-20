@@ -9,6 +9,17 @@
 
 {% block content %}
     <!-- Основной контент -->
+    <div class="findbar">
+        <div class="container">
+            <div class="search">
+                <form action="{{ url_for('movies.movies') }}" method="POST">
+                    <input type="text" name="search_films" placeholder="Найти фильм...">
+                    <button type="submit">Поиск</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <div class="container main-content">
         <h1 class="page-title">Сейчас в кинотеатрах</h1>
 
