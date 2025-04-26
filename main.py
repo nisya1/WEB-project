@@ -1,4 +1,4 @@
-import blueprints.movies, blueprints.auth, blueprints.admin_page
+import blueprints.movies, blueprints.auth, blueprints.admin_page, blueprints.map
 from api.auth.profile import UserProfileApi
 from api.movies.movies import AllMoviesApi
 from api.map.map import MapInfoApi
@@ -13,6 +13,7 @@ app.secret_key = choice(["1", '2', '3'])
 app.register_blueprint(blueprints.movies.bp)
 app.register_blueprint(blueprints.auth.bp)
 app.register_blueprint(blueprints.admin_page.bp)
+app.register_blueprint(blueprints.map.bp)
 
 api = Api(app)
 api.add_resource(UserProfileApi, '/api/profile/<user_name>')
