@@ -1,6 +1,7 @@
 import blueprints.movies, blueprints.auth, blueprints.admin_page
 from api.auth.profile import UserProfileApi
 from api.movies.movies import AllMoviesApi
+from api.map.map import MapInfoApi
 from random import choice
 from flask import Flask, redirect, session, render_template
 from flask_restful import Api
@@ -16,6 +17,7 @@ app.register_blueprint(blueprints.admin_page.bp)
 api = Api(app)
 api.add_resource(UserProfileApi, '/api/profile/<user_name>')
 api.add_resource(AllMoviesApi, '/api/movies/all')
+api.add_resource(MapInfoApi, '/api/map/cinema')
 
 
 @app.route('/')
