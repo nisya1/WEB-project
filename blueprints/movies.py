@@ -45,6 +45,37 @@ def movies():
     return render_template("movies/index.html", **params)
 
 
+@bp.route("/soon", methods=['GET', 'POST'])
+def soon_movies():
+    today = date.today()
+    search = None
+    if request.method == 'POST':
+        search = request.form['search_films']
+
+    session['user_active'] = session.get('user_active', False)
+    session['show_modal'] = session.get('show_modal', False)
+    session['base_url'] = request.base_url
+
+    global_init(f"database/posters.db")
+    sess = create_session()
+    events = [event for event in sess.query(Events).all() if date(*function(event.Time)) > today]
+    genres = sess.query(EventGenre).all()
+
+    events.sort(key=lambda x: date(*function(x.Time)))
+
+    if search:
+        events = [event for event in events if search.lower() in event.Title.lower()]
+    params = {
+        "events": events,
+        "genres": genres,
+        "user_active": session['user_active'],
+        "show_modal": session['show_modal']
+    }
+
+    return render_template("movies/soon.html", **params)
+
+
+
 @bp.route('/<event_id>', methods=['GET'])
 def movie(event_id: int):
     session['user_active'] = session.get('user_active', False)

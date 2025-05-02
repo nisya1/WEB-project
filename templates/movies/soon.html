@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block head %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Кинотека — Скоро покажут :3</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='movies/style.css') }}">
+{% endblock %}
+
+{% block content %}
+    <!-- Основной контент -->
+    <div class="findbar">
+        <div class="container">
+            <div class="search">
+                <form action="{{ url_for('movies.soon_movies') }}" method="POST">
+                    <input type="text" name="search_films" placeholder="Найти фильм...">
+                    <button type="submit">Поиск</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="container main-content">
+        <h1 class="page-title">Ближайшие показы</h1>
+
+        <div class="movies-grid">
+            {% for event in events%}
+            <!-- Карточка фильма 1 -->
+            <div class="movie-card">
+                <img src="{{ url_for('static', filename='movies/images/' + event.ImageName) }}" alt="{{event.Title}}"
+                     class="movie-poster">
+                <div class="movie-info">
+                    <h3 class="movie-title">{{event.Title}}</h3>
+                    <p class="movie-genre">{{genres[event.GenreId - 1]}}, {{event.Duration}}</p>
+                    <div class="movie-rating">{{event.Rating}}/10</div>
+                    <form action="{{ url_for('movies.movie', event_id=event.EventId) }}" method="GET">
+                        <input type="hidden" name="movie_title" value={{event.Title}}>
+                        <input type="hidden" name="movie_id" value={{event.EventId}}>
+                        <button type="submit" class="btn-buy">Купить билет</button>
+                    </form>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+        {% if show_modal %}
+        <div class="modal-overlay">
+            <div class="modal-content">
+                <form action="{{ url_for('auth.logout') }}" method="POST">
+                    <h3>Подтверждение выхода</h3>
+                    <p>Вы действительно хотите выйти из аккаунта?</p>
+                    <div class="modal-buttons">
+                        <button type="submit" name="confirm_logout" value="true" class="btn-confirm">Выйти</button>
+                        <button type="submit" class="btn-cancel">Отмена</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        {% endif %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+{% endblock %}
