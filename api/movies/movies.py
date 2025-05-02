@@ -26,4 +26,4 @@ class AllMoviesApi(Resource):
 
             output[movie.Title] = cur_data
 
-        return jsonify({"movies": output})
+        return jsonify({"movies": output}, ensure_ascii=False)

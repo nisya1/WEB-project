@@ -1,0 +1,113 @@
+/* Стили для страницы ближайшего кинотеатра */
+.cinema-container {
+    padding: 40px 0;
+    display: flex;
+    justify-content: center;
+}
+
+.cinema-info {
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    padding: 30px;
+    max-width: 800px;
+    width: 100%;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(229, 9, 20, 0.2);
+    text-align: center;
+}
+
+.cinema-title {
+    color: var(--light-text);
+    font-size: 28px;
+    margin-bottom: 25px;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.cinema-title:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background-color: var(--primary-color);
+}
+
+.cinema-image-container {
+    margin: 25px 0;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.cinema-image {
+    width: 100%;
+    height: auto;
+    max-height: 400px;
+    object-fit: cover;
+    transition: transform 0.3s;
+}
+
+.cinema-image:hover {
+    transform: scale(1.02);
+}
+
+.cinema-details {
+    margin: 30px 0;
+    text-align: left;
+    padding: 0 20px;
+}
+
+.cinema-address,
+.cinema-hours,
+.cinema-phone {
+    color: var(--light-text);
+    font-size: 16px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.cinema-address i,
+.cinema-hours i,
+.cinema-phone i {
+    margin-right: 10px;
+    color: var(--primary-color);
+}
+
+.btn-back {
+    display: inline-block;
+    padding: 12px 30px;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s;
+    border: none;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.btn-back:hover {
+    background-color: #f40612;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(229, 9, 20, 0.3);
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .cinema-info {
+        padding: 20px;
+    }
+
+    .cinema-title {
+        font-size: 24px;
+    }
+
+    .cinema-details {
+        padding: 0;
+    }
+}
