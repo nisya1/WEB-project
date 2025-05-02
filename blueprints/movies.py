@@ -1,15 +1,24 @@
 import flask
 from flask import render_template, request, session, redirect, flash
+from datetime import date
 from data.db_session import global_init, create_session
 from data.posters_models.events import Events
 from data.posters_models.eventgenre import EventGenre
 from data.users_models.users import Users
+
+
+def function(time: str):
+    time = tuple(map(int, time.split()[0].split('.')[::-1]))
+    return time
+
+
 
 bp = flask.Blueprint("movies", __name__, url_prefix="/movies")
 
 
 @bp.route("/", methods=['GET', 'POST'])
 def movies():
+    today = date.today()
     search = None
     if request.method == 'POST':
         search = request.form['search_films']
@@ -20,7 +29,7 @@ def movies():
 
     global_init(f"database/posters.db")
     sess = create_session()
-    events = sess.query(Events).all()
+    events = [event for event in sess.query(Events).all() if date(*function(event.Time)) > today]
     genres = sess.query(EventGenre).all()
 
     if search:
