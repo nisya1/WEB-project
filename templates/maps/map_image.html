@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block head %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Кинотека — Ближайший кинотеатр</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='movies/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='maps/map_image.css') }}">
+{% endblock %}
+
+{% block content %}
+    <div class="container cinema-container">
+        <div class="cinema-info">
+            <h2 class="cinema-title">Ближайший к вам кинотеатр находится здесь</h2>
+            <div class="cinema-image-container">
+                <img src="{{ url_for('static', filename='movies/images/' + cinema_image) }}" alt="Карта с расположением кинотеатра" class="cinema-image">
+            </div>
+            <div class="cinema-details">
+                <p class="cinema-address"><i class="bi bi-geo-alt-fill"></i> Название: {{ cinema_name }}</p>
+                <p class="cinema-address"><i class="bi bi-geo-alt-fill"></i> Адрес: {{ cinema_address }}</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
