@@ -14,7 +14,7 @@ class DeleteMovie(Resource):
         if not request.json:
             return make_response(jsonify({'error': 'Empty request'}), 400)
         elif not all(key in request.json for key in
-                     ['admin_email', 'admin_password', 'movie_id', 'image_name']):
+                     ['admin_email', 'admin_password', 'movie_id']):
             return make_response(jsonify({'error': 'Bad request'}), 400)
 
         email = request.json['admin_email']
@@ -29,20 +29,20 @@ class DeleteMovie(Resource):
                 if user.RoleId == 1:
                     movie_id = request.json['movie_id']
 
-                    try:
-                        image_name = request.json['image_name']
-                        upload_folder = os.path.join('static', 'movies', 'images')
-                        filepath = os.path.join(upload_folder, image_name)
-                        os.remove(filepath)
-                    except:
-                        pass
-
                     global_init(f"database/posters.db")
                     sess = create_session()
 
                     film = sess.query(Events).filter(Events.EventId == movie_id).first()
 
                     if film:
+                        try:
+                            image_name = film.ImageName
+                            upload_folder = os.path.join('static', 'movies', 'images')
+                            filepath = os.path.join(upload_folder, image_name)
+                            os.remove(filepath)
+                        except:
+                            pass
+
                         sess.delete(film)
                         sess.commit()
 
