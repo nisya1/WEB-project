@@ -11,14 +11,18 @@
 {% block content %}
     <div class="container cinema-container">
         <div class="cinema-info">
-            <h2 class="cinema-title">Ближайший к вам кинотеатр находится здесь</h2>
-            <div class="cinema-image-container">
-                <img src="{{ url_for('static', filename='movies/images/' + cinema_image) }}" alt="Карта с расположением кинотеатра" class="cinema-image">
-            </div>
-            <div class="cinema-details">
-                <p class="cinema-address"><i class="bi bi-geo-alt-fill"></i> Название: {{ cinema_name }}</p>
-                <p class="cinema-address"><i class="bi bi-geo-alt-fill"></i> Адрес: {{ cinema_address }}</p>
-            </div>
+            {% if cinema_image %}
+                <h2 class="cinema-title">Ближайший к вам кинотеатр находится здесь</h2>
+                <div class="cinema-image-container">
+                    <img src="{{ url_for('static', filename='movies/images/' + cinema_image) }}" alt="Карта с расположением кинотеатра" class="cinema-image">
+                </div>
+                <div class="cinema-details">
+                    <p class="cinema-address"><i class="bi bi-geo-alt-fill"></i> Название: {{ cinema_name }}</p>
+                    <p class="cinema-address"><i class="bi bi-geo-alt-fill"></i> Адрес: {{ cinema_address }}</p>
+                </div>
+            {% else %}
+                <h2 class="cinema-title">Не удалось найти ближайший кинотеатр. Пожалуйста проверьте корректность введённого адреса</h2>
+            {% endif %}
         </div>
     </div>
 {% endblock %}
