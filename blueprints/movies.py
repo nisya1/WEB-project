@@ -137,7 +137,7 @@ def movie(event_id: int):
         'user_active': session['user_active'],
         'show_modal': session['show_modal'],
     }
-    return render_template('movies/movie_not_found.html', **params)
+    return render_template('errors/error404.html', **params)
 
 
 @bp.route('/buy_ticket/<event_id>', methods=['POST'])
