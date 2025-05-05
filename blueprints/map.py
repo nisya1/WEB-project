@@ -20,6 +20,9 @@ def get_coordinates(address):
     response = requests.get(geocoder_request)
     if response:
         json_response = response.json()
+        if json_response["response"]["GeoObjectCollection"]["metaDataProperty"]["GeocoderResponseMetaData"][
+            "found"] == "0":
+            return None
         toponym = json_response["response"]["GeoObjectCollection"]["featureMember"][0]["GeoObject"]
         toponym_coodrinates = toponym["Point"]["pos"].split()
         return float(toponym_coodrinates[0]), float(toponym_coodrinates[1])
@@ -71,13 +74,15 @@ def show_map():
     house = request.form.get("house")
     address = f'{city}, {street}, д{house}'
 
-    # Получаем координаты введённого адреса
     user_coords = get_coordinates(address)
     if not user_coords:
-        flash("Не удалось определить координаты для указанного адреса")
-        return redirect("/map")
+        params = {
+            "cinema_image": "",
+            "cinema_name": None,
+            "cinema_address": None
+        }
+        return render_template("maps/map_image.html", **params)
 
-    # Ищем ближайший кинотеатр
     cinema = find_nearest_cinema(user_coords)
     if not cinema:
         flash("Не удалось найти кинотеатры поблизости")
