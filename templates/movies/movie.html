@@ -71,7 +71,7 @@
             <p id="total-price">0 руб.</p>
           </div>
             <form action="{{ url_for('movies.buy_ticket', event_id=event.EventId) }}" method="POST">
-                <button id='book-button' onclick="getSeats()" type="submit" name="seats" value="" class="btn-checkout w-100 mt-3">Перейти к оплате</button>
+                <button id='book-button' onclick="getSeats()" type="submit" name="seats" value="" class="btn-checkout w-100 mt-3">Купить</button>
             </form>
 
                 {% with messages = get_flashed_messages() %}
